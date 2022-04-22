@@ -1,0 +1,37 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - "*"
+    paths-ignore:
+      - "**.md"
+  pull_request:
+    branches:
+      - "*"
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.12
+
+      - name: Make Debug folder
+        run: mkdir Debug
+
+      - name: Setup project
+        run: |
+          cmake -S . -B Debug -D CMAKE_BUILD_TYPE=Debug
+          cmake --build Debug
+
+      - name: Upload Debug release
+        uses: actions/upload-artifact@v2
+        with:
+          name: "spotifyEnableDevTools-Debug"
+          path: Debug/spotifyEnableDevTools.exe
