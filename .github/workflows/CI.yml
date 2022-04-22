@@ -13,7 +13,7 @@ on:
       - "**.md"
 
 jobs:
-  build:
+  debug:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v1
@@ -25,7 +25,7 @@ jobs:
       - name: Make Debug folder
         run: mkdir Debug
 
-      - name: Build project
+      - name: Build (Debug) project
         run: |
           cmake -S . -B Debug -D CMAKE_BUILD_TYPE=Debug
           cmake --build Debug
@@ -35,3 +35,25 @@ jobs:
         with:
           name: "spotifyEnableDevTools-Debug"
           path: Debug/Debug/spotifyEnableDevTools.exe
+  release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v1
+      - uses: seanmiddleditch/gha-setup-ninja@master
+
+      - name: Setup cmake
+        uses: jwlawson/actions-setup-cmake@v1.12
+
+      - name: Make Release folder
+        run: mkdir Release
+
+      - name: Build project
+        run: |
+          cmake -S . -B Release -D CMAKE_BUILD_TYPE=Release
+          cmake --build Release
+
+      - name: Upload Debug release
+        uses: actions/upload-artifact@v2
+        with:
+          name: "spotifyEnableDevTools"
+          path: Release/Release/spotifyEnableDevTools.exe
