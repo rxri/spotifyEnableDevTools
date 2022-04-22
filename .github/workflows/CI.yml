@@ -25,7 +25,7 @@ jobs:
       - name: Make Debug folder
         run: mkdir Debug
 
-      - name: Setup project
+      - name: Build project
         run: |
           cmake -S . -B Debug -D CMAKE_BUILD_TYPE=Debug
           cmake --build Debug
@@ -34,4 +34,4 @@ jobs:
         uses: actions/upload-artifact@v2
         with:
           name: "spotifyEnableDevTools-Debug"
-          path: Debug/spotifyEnableDevTools.exe
+          path: Debug/Debug/spotifyEnableDevTools.exe
