@@ -26,10 +26,10 @@ HANDLE GetProcess(char* processName)
 
 inline int closeProgram(int code)
 {
-  std::string dummy;
-  std::cout << "[!] Click enter to exit." << std::endl;
-  std::getline(std::cin, dummy);
-  return code;
+	std::string dummy;
+	std::cout << "[!] Click enter to exit." << std::endl;
+	std::getline(std::cin, dummy);
+	return code;
 }
 
 int main()
@@ -38,16 +38,16 @@ int main()
 
 	process = GetProcess("Spotify.exe");
 	if(!process) {
-        std::cerr << "[-] Can't hook up to process (Is spotify open?)." << std::endl;
-        return closeProgram(-1);
+		std::cerr << "[-] Can't hook up to process (Is spotify open?)." << std::endl;
+		return closeProgram(-1);
 	}
 
   int address = 0x16ACC3D;
 	int targetValue = 255;
 	int result = WriteProcessMemory(process, (LPVOID*)address, &targetValue, (DWORD)sizeof(targetValue), NULL);
 	if(result==0x00) {
-    std::cerr << "[-] There was some error, try again later or report it to us!" << std::endl;
-  }
+		std::cerr << "[-] There was some error, try again later or report it to us!" << std::endl;
+	}
 	std::cout << "[+] Developer mode has been successfully enabled." << std::endl;
 	return closeProgram(0);
 }
