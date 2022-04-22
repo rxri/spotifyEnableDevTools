@@ -1,6 +1,7 @@
 #include <windows.h>
 #include <iostream>
 #include <TlHelp32.h>
+#include <string>
 
 HANDLE process;
 HWND hWnd;
