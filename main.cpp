@@ -1,3 +1,11 @@
+/**
+ * @file main.cpp
+ *
+ * @author ririxidev
+ * Contact: mail@ririxi.dev
+ *
+ */
+
 #include <windows.h>
 #include <iostream>
 #include <TlHelp32.h>
