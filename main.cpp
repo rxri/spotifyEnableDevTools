@@ -9,10 +9,11 @@
 #include <windows.h>
 #include <iostream>
 #include <TlHelp32.h>
+#include <fstream>
+#include <string>
+#include "spotify.h"
 
 HANDLE process;
-HWND hWnd;
-std::string version = "1.1.83";
 
 HANDLE GetProcess(char* processName)
 {
@@ -34,28 +35,29 @@ HANDLE GetProcess(char* processName)
 
 inline int closeProgram(int code)
 {
-  std::string dummy;
-  std::cout << "[!] Click enter to exit." << std::endl;
-  std::getline(std::cin, dummy);
-  return code;
+	std::string dummy;
+	std::cout << "[!] Click enter to exit." << std::endl;
+	std::getline(std::cin, dummy);
+	return code;
 }
 
 int main()
 {
-	std::cout << "[!] This version of program works only for Spotify " + version << std::endl;
+	std::cout << "[!] This version of program works only for Spotify 1.1.82, 1.1.83 & 1.1.84" << std::endl;
 
-	process = GetProcess("Spotify.exe");
+	std::string processName = "Spotify.exe";
+	process = GetProcess(processName.data());
 	if(!process) {
-        std::cerr << "[-] Can't hook up to process (Is spotify open?)." << std::endl;
-        return closeProgram(-1);
+		std::cerr << "[-] Can't hook up to process (Is spotify open?)." << std::endl;
+		return closeProgram(-1);
 	}
 
-  int address = 0x16ACC3D;
+	int address = readSpotifyVersion();
 	int targetValue = 255;
 	int result = WriteProcessMemory(process, (LPVOID*)address, &targetValue, (DWORD)sizeof(targetValue), NULL);
-	if(result==0x00) {
-    std::cerr << "[-] There was some error, try again later or report it to us!" << std::endl;
-  }
+	if (result == 0x00) {
+		std::cerr << "[-] There was some error, try again later or report it to us!" << std::endl;
+	}
 	std::cout << "[+] Developer mode has been successfully enabled." << std::endl;
 	return closeProgram(0);
 }

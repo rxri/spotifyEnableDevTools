@@ -7,5 +7,6 @@ set(APP_ICON_WINDOWS "${CMAKE_CURRENT_SOURCE_DIR}/appIcon.rc")
 
 file(GLOB SOURCES "*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES} ${APP_ICON_WINDOWS})
-target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_17)
+target_compile_features(${PROJECT_NAME} PRIVATE cxx_std_23)
 target_link_options(${PROJECT_NAME} PRIVATE -static-libgcc -static-libstdc++ -static)
+link_directories(${CMAKE_CURRENT_SOURCE_DIR})
