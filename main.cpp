@@ -43,7 +43,7 @@ inline int closeProgram(int code)
 
 int main()
 {
-	std::cout << "[!] This version of program works only for Spotify 1.1.82, 1.1.83 & 1.1.84" << std::endl;
+	std::cout << "[!] Make sure you use right version of program for your spotify!" << std::endl;
 
 	std::string processName = "Spotify.exe";
 	process = GetProcess(processName.data());
