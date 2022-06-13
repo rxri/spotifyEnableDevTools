@@ -48,10 +48,12 @@ std::string getPrefsFile()
 int getAddress(int version)
 {
 	switch(version) {
+		case 87:
+			return 0x1700ABD;
 		case 86:
 			return 0x16EFC3D;
 		case 85:
-			return 0x16b7C7C;
+			return 0x16B7C7C;
 		case 84:
 			return 0x16A597C;
 		case 83:
